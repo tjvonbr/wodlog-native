@@ -41,6 +41,7 @@ exports.up = function(knex) {
       table
         .string("name")
         .notNullable()
+        .defaultTo("")
     })
 
     .createTable("exercise_sets", table => {

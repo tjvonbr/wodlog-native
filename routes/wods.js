@@ -29,7 +29,7 @@ router.post('/', (req, res) => {
     })
 })
 
-/* Update a WOD */ 
+// Update a WOD
 router.put('/:id', (req, res) => {
   const { id } = req.params;
   const changes = req.body;
@@ -42,6 +42,24 @@ router.put('/:id', (req, res) => {
     .catch(err => {
       console.log(err);
       res.status(500).json({ message: "Sorry, but there was an issue updating this WOD."})
+    })
+})
+
+// Add an exercise to a WOD
+router.post('/:id', (req, res) => {
+  const { id } = req.params;
+  const exercise = req.body;
+
+  wods.addExercise(id, exercise)
+    .then(newExercise => {
+      console.log(newExercise);
+      res.status(201).json({newExercise});
+    })
+    .catch(err => {
+      console.log(err);
+      res.status(500).json({ 
+          message: "Sorry, but there was an error adding the exercise."
+      })
     })
 })
 

@@ -2,7 +2,7 @@ var express = require('express');
 var router = express.Router();
 const users = require('../models/users');
 
-/* GET users listing. */
+// GET all exercises
 router.get('/', function(req, res, next) {
   users.fetchAll()
     .then(users => { 
@@ -13,6 +13,7 @@ router.get('/', function(req, res, next) {
     })
 });
 
+// GET exercise by ID
 router.get('/:id', (req, res) => {
   const { id } = req.params;
 
@@ -25,6 +26,7 @@ router.get('/:id', (req, res) => {
     })
 })
 
+// POST a new exercise
 router.post('/', (req, res) => {
   const user = req.body;
 

@@ -33,7 +33,9 @@ function updateExercise(id, edits) {
   return db('exercises')
     .where({ id })
     .update({ name: edits.name })
-    .then(() => fetchAll())
+    .then(() => {
+      return
+    })
 }
 
 module.exports = { 

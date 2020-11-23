@@ -51,6 +51,7 @@ router.put('/:id', (req, res) => {
 
   exercises.updateExercise(id, edits)
     .then(updated => {
+      console.log(updated);
       res.status(204)
     })
     .catch(err => {

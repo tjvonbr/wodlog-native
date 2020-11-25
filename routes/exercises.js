@@ -14,13 +14,28 @@ router.get('/', (req, res) => {
     })
 })
 
+// GET exercise by ID
+router.get('/:id', (req, res) => {
+  const { id } = req.params;
+
+  exercises.fetchExerciseById(id)
+    .then(exercise => {
+      console.log(exercise);
+      res.status(200).json(exercise);
+    })
+    .catch(err => {
+      console.log(err);
+      res.status(500).json({ message: 'Sorry, but there was an issue finding this exercise.' })
+    })
+})
+
 // POST a new exercise
 router.post('/', (req, res) => {
   const exercise = req.body;
 
   exercises.addExercise(exercise)
     .then(newExercise => {
-      console.log(newExercise);
+      console.log("NEW EXERCISE", newExercise);
       res.status(201).json(newExercise);
     })
     .catch(err => {
@@ -52,7 +67,7 @@ router.put('/:id', (req, res) => {
   exercises.updateExercise(id, edits)
     .then(updated => {
       console.log(updated);
-      res.status(204)
+      res.status(200).json(updated);
     })
     .catch(err => {
       console.log(err);

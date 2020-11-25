@@ -6,7 +6,7 @@ function addExercise(exercise) {
     .insert(exercise, 'id')
     .then(ids => {
       const [ id ] = ids;
-      return fetchAll()
+      return fetchExerciseById(id)
     })
 }
 
@@ -14,7 +14,6 @@ function deleteExercise(id) {
   return db('exercises')
     .where({ id })
     .del()
-    .then(() => fetchAll())
 }
 
 function fetchAll() {
@@ -22,19 +21,25 @@ function fetchAll() {
 }
 
 function fetchExerciseById(id) {
-  return db('exercises').where({ id })
+  return db('exercises')
+    .where({ id })
+    .first()
 }
 
 function fetchExercisesByWodId(id) {
   return db('wod-exercise').where({ workout_id: id })
 }
 
-function updateExercise(id, edits) {
+function updateExercise(id, changes) {
   return db('exercises')
     .where({ id })
-    .update({ name: edits.name })
-    .then(() => {
-      return
+    .update({ name: changes.name })
+    .then(count => {
+      if (count > 0) {
+        return fetchExerciseById(id)
+      } else {
+        return null
+      }
     })
 }
 

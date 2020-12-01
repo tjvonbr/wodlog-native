@@ -49,9 +49,9 @@ router.delete('/:id', (req, res) => {
   const { id } = req.params;
 
   exercises.deleteExercise(id)
-    .then(remaining => {
-      console.log(remaining);
-      res.status(200).json(remaining);
+    .then(deleted => {
+      console.log(deleted);
+      res.status(200).json(deleted);
     })
     .catch(err => {
       console.log(err);
